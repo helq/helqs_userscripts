@@ -15,7 +15,7 @@ function initScript() {
 
   console.log("Facebook right-column remover started");
 
-  let to_del = document.querySelector("#rightCol > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)");
+  let to_del = document.querySelector("#rightCol > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)");
   //console.log( to_del.outerHTML );
   
   to_del.parentNode.removeChild( to_del );
