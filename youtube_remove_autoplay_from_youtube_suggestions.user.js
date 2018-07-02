@@ -5,7 +5,7 @@
 // @downloadURL https://raw.githubusercontent.com/helq/helqs_userscripts/master/youtube_remove_autoplay_from_youtube_suggestions.user.js
 // @include     http://www.youtube.com/*
 // @include     https://www.youtube.com/*
-// @version     0.1.0
+// @version     1.0.1
 // @grant       none
 // @author      helq
 // @license     CC0
@@ -14,20 +14,31 @@
 // Script based from:
 // http://greasyfork.org/scripts/7893 by @wxc (https://greasyfork.org/en/users/8868-wxc)
 
-function f() {
+let button_id = 'improved-toggle';
+let deactivated = false;
+
+let clickButton = function(node) {
   "use strict";
   
-  try {
+  node.click();
+  document.body.removeEventListener('DOMSubtreeModified', f, false);
+  console.log("It has been turned off :D");
+}
+
+let f = function() {
+  "use strict";
+  
+  if (!deactivated) {
     //console.log("Detecting autoplay");
-    let node = document.getElementById('improved-toggle');
-    if (node.hasAttribute('active')) {
-      console.log("Autoplay on. Turning it off");
-      node.click();
-      document.body.removeEventListener('DOMSubtreeModified', f, false);
+    let node = document.getElementById(button_id);
+    if (node !== null && node.hasAttribute('active')) {
+      console.log("Autoplay on. Trying to turn it off");
+      setTimeout(clickButton, 150, node);
+      deactivated = true;
     }
   }
-  catch (e) {}
 }
-f();
+
+//f();
 document.body.addEventListener('DOMSubtreeModified', f, false);
 setTimeout(f, 400);
